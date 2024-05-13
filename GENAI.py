@@ -49,3 +49,65 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+class Expense:
+    def __init__(self, category, amount):
+        self.category = category
+        self.amount = amount
+
+class ExpenseTracker:
+    def __init__(self):
+        self.expenses = []
+
+    def add_expense(self, expense):
+        self.expenses.append(expense)
+        print("Expense added successfully.")
+
+    def total_expenses(self):
+        total = sum(expense.amount for expense in self.expenses)
+        print(f"Total expenses: ${total:.2f}")
+
+    def expenses_by_category(self):
+        categories = {}
+        for expense in self.expenses:
+            if expense.category in categories:
+                categories[expense.category] += expense.amount
+            else:
+                categories[expense.category] = expense.amount
+
+        print("Expenses by category:")
+        for category, amount in categories.items():
+            print(f"{category}: ${amount:.2f}")
+
+
+def main():
+    expense_tracker = ExpenseTracker()
+
+    while True:
+        print("\nExpense Tracker")
+        print("1. Add Expense")
+        print("2. View Total Expenses")
+        print("3. View Expenses by Category")
+        print("4. Quit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            category = input("Enter expense category: ")
+            amount = float(input("Enter expense amount: $"))
+            expense = Expense(category, amount)
+            expense_tracker.add_expense(expense)
+        elif choice == "2":
+            expense_tracker.total_expenses()
+        elif choice == "3":
+            expense_tracker.expenses_by_category()
+        elif choice == "4":
+            print("Exiting program.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
+
